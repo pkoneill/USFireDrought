@@ -2,11 +2,13 @@
 
 ## Research topic
 We are interested in exploring how drought is related to the incidence of wildfires. Using data collected in the United States, we would like to answer the following questions: 
+
   1. How are drought (duration, severity, location) and wildfires (frequency, severity, location) related?
   2. How have the relationships between drought and wildfires changed across time?
 
 ## Data availability
-  We will draw on datasets from the Center for Disease Control (CDC) and the National Fire Incident Reporting System (NFIRS) in our analyses:
+  We will draw on datasets from the Center for Disease Control (CDC) and the National Fire Incident Reporting System (NFIRS) in our analyses: 
+  
   1. The [CDC United States Drought Monitor](https://data.cdc.gov/Environmental-Health-Toxicology/United-States-Drought-Monitor-2000-2016/spsk-9jj6)   reports weekly drought estimates at the county level for the contiguous United States. The data spans a time period between 2000-2016 and was last updated November 27, 2018.
   2. [NFIRS Public Data](https://www.fema.gov/about/openfema/data-sets/fema-usfa-nfirs-annual-data) contains fire incident information across the US. Each year the U.S. Fire Administration compiles publicly-released NFIRS incidents, collected by states during the previous calendar year, into a public data release. 
   
