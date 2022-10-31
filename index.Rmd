@@ -1,6 +1,6 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: "US Fire and Drought"
+author: "Hannah Yang, Kevin Taylor and Pia O'Neill"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
