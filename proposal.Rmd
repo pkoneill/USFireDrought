@@ -2,5 +2,7 @@
 
 ## Research topic
 
+  
 ## Data availability
-
+  We will use datasets from the Center for Disease Control (CDC) and the National Fire Incident Reporting System (NFIRS) in our analyses. The [CDC United States Drought Monitor](https://data.cdc.gov/Environmental-Health-Toxicology/United-States-Drought-Monitor-2000-2016/spsk-9jj6)   reports weekly drought estimates at the county level for the contiguous United States.
+  [NFIRS Public Data](https://www.fema.gov/about/openfema/data-sets/fema-usfa-nfirs-annual-data) contains fire incident information across the US.
