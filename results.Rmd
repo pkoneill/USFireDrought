@@ -1,1 +1,241 @@
 # Results
+```{r}
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+```{r}
+library(plyr)
+library(dplyr)
+library(readr)
+library(ggplot2)
+library(tidyverse)
+library(forcats)
+library(ggalluvial)
+library(lubridate)
+library(grid)
+library(RColorBrewer)
+library(scales)
+library(tidycensus)
+```
+
+## Reading the Data Sources
+Read the pre-processed .rds objects into R:
+```{r}
+usdm = readRDS('./data/usdm.rds')
+usdm$date = as.Date(usdm$date) # convert date column to date type
+usdm$drought
+head(usdm)
+
+wildfires = readRDS('./data/wildfires.rds')
+head(wildfires)
+```
+Add one additional column to the USDM database `r drought_condition`, which is a factor mapping the drought conditions listed in the metadata to the numerical value. 
+```{r}
+usdm$drought_condition = factor(
+  usdm$value,
+  levels = c(9, 0, 1, 2, 3, 4),
+  labels = c('No Drought',
+             'Abnormally Dry',
+             'Moderate Drought',
+             'Severe Drought',
+             'Extreme Drought',
+             'Exceptional Drought')
+)
+```
+
+## USDM Database: Drought Trends
+<<<<<<< HEAD
+Has drought become more common in the USA over the time period? Has the drought condition of the nation fluctuated over time? The USDM reports six levels of drought condition ranging from *No Drought* to *Exceptional Drought*. To analyze whether drought has become more common in the US from 2004-2018 we can view the percent of time spent in each state as a 100% stacked bar chart over each year, and a smoothed stacked area over each month. 
+=======
+Has drought become more common in the USA over the time period? Has the drought condition of the nation fluctuated over time? The USDM reports six levels of drought condition ranging from *No Drought* to *Exceptional Drought*. To analyze whether drought has become more common in the US from 2004-2018 we can view the percent of time spent in each state as a 100% stacked bar chart over time. 
+>>>>>>> 9efa79f7596e757f6ef55bb9f67acd9fc6b17061
+
+```{r}
+usdm$count = 1
+yearly_proportions = as.data.frame( # create proportion table
+  proportions(
+    xtabs(
+      count ~ year + drought_condition, usdm
+    ),
+    'year'
+  )
+)
+ggplot( # plot proportion table
+  yearly_proportions,
+  aes(x = year, y = Freq, fill = drought_condition)
+) +
+  geom_bar(stat = 'identity', position = 'stack') + # stack the frequencies
+  scale_y_continuous(labels = percent) + 
+  scale_fill_brewer(palette = 'Reds') +
+  labs(
+    x = 'Year',
+    y = 'Percent Spent in Drought Condition',
+    title = 'Percent of Year in Each Drought Condition',
+    subtitle = '2004 - 2016',
+    fill = 'Drought Condition'
+    ) + 
+  theme_minimal()
+```
+Create a more granular stacked area chart to show the data each month:
+```{r}
+usdm$count = 1
+monthly_proportions = as.data.frame( # create proportion table
+  proportions(
+    xtabs(
+      count ~ year + month + drought_condition, usdm
+    ),
+    c('year', 'month') # this time group by year and month
+  )
+)
+ggplot( # plot proportion table
+  monthly_proportions,
+  aes(
+    x = lubridate::ym(paste0(year, '-', month)), # convert x to datetime
+    y = Freq, fill = drought_condition)
+) +
+  geom_area(
+    stat = 'identity',
+    position = 'stack',
+  ) + # stack the frequencies
+  #geom_bar(stat = 'identity', position = 'stack') + # stack the frequencies
+  scale_fill_brewer(palette = 'Reds') +
+  scale_y_continuous(labels = percent) + 
+  facet_grid( # facet by year putting a gap in between 
+    ~year,
+    scales = 'free_x',
+    switch = 'x',
+    space = 'free_x'
+  ) +
+  labs(
+    x = 'Year',
+    y = 'Percent Spent in Drought Condition',
+    title = 'Percent of Year in Each Drought Condition',
+    subtitle = '2004 - 2016',
+    fill = 'Drought Condition'
+  ) +
+  theme_void() +
+  theme( # format year facet
+    strip.placement = "outside",
+    strip.background = element_rect(fill = "white"), 
+    axis.text.x = element_blank(),
+    axis.title.x = element_text(size = 9),
+    axis.text.y = element_text(size = 9),
+    panel.spacing = unit(0.05, units = 'cm')
+  )
+```
+There does not appear to be any linear trend for drought in the nation. However, it does appear  the country has spent more time in *Abnormally Dry* - *Exceptional Drought* periods from 2011-2016 than it has from 2004 - 2010, perhaps indicating drought is becoming more common. There does not appear to be any strong seasonality in an individual year. Rather, periods of drought seem to come and go through the seasons and years.
+
+## NFIRS Database: Wildfire Trends
+What about the number of wildfires? Has the number of wildfires recorded in NFIRS increased over the years? Is there a seasonality? We can start by transforming the *INC_DATE* column to a date and a year, month and day part, then create similar visualizations to the ones above. 
+
+```{r}
+wildfires$date = lubridate::mdy(wildfires$INC_DATE) # convert date
+wildfires$year = year(wildfires$date) # pull year from date
+wildfires$month = month(wildfires$date) # pull month from date
+wildfires$day = day(wildfires$date) # pull day from date
+
+ggplot( # plot proportion table
+  wildfires,
+  aes(x = year)
+) +
+  geom_bar(
+    stat = 'count',
+    position = 'stack',
+    fill = 'steelblue',
+    col = 'black'
+  ) + # plot the counts each year
+  labs(
+    x = 'Year',
+    y = 'Number of NFIRS Wildfires',
+    title = 'Number of NFIRS Wildfires by Year',
+    subtitle = '2004 - 2016'
+    ) + 
+  theme_minimal()
+```
+Create a more granular bar chart to show the data each month:
+```{r}
+wildfires$count = 1
+wildfires_by_year_month = data.frame(
+  xtabs( # xtabs for count by each month
+    count ~ year + month, wildfires
+    )
+)
+
+ggplot( # plot table of counts by each year, month
+  wildfires_by_year_month,
+  aes(
+    x = lubridate::ym(paste0(year, '-', month)), # convert x to datetime
+    y = Freq
+  )
+) +
+  geom_bar(
+    stat = 'identity',
+    col = 'black',
+    fill = 'steelblue'
+  ) + # bar plot
+  facet_grid( # facet by year putting a gap in between 
+    ~year,
+    scales = 'free_x',
+    switch = 'x',
+    space = 'free_x'
+  ) +
+  labs(
+    x = 'Year',
+    y = 'Number of NFIRS Wildfires',
+    title = 'Number of NFIRS Wildfires by Month',
+    subtitle = '2004 - 2016'
+  ) +
+  theme_minimal() +
+  theme( # format year facet
+    strip.placement = "outside",
+    strip.background = element_rect(fill = "white"), 
+    axis.text.x = element_blank(),
+    axis.text.y = element_text(size = 9),
+    panel.spacing = unit(0.1, units = 'cm')
+  )
+```
+The NFIRS wildfires also do not have a clear linear trend from 2004 - 2016 in the number of wildfires. It does have more of a seasonality - more wildfires seem to occur near the middle of each year, which is also the hottest time of year. The number of wildfires by month does not seem to have a clear relationship to the drought trends - more analysis will be required.
+
+## State and County-Wide Results
+
+We can investigate if any states or regions are particularly susceptible or non-susceptible to drought. To do so, we can calculate the time each individual state spends in a drought. We can consider a drought any *drought_condition* other than *Abnormally Dry* as a drought state, and derive the time each state spends in a drought, each year. This requires a couple merges of the data - first with 
+
+```{r}
+fips = tidycensus::fips_codes
+fips
+```
+
+
+```{r}
+ggplot( # plot proportion table
+  monthly_proportions,
+  aes(
+    x = month,
+    y = Freq, fill = drought_condition)
+) +
+  geom_bar(stat = 'identity', position = 'stack') +
+  scale_fill_brewer(palette = 'Reds') +
+  scale_y_continuous(labels = percent) + 
+  labs(
+    x = 'Year',
+    y = 'Percent Spent in Drought Condition',
+    title = 'Percent of Year in Each Drought Condition',
+    subtitle = '2004 - 2016',
+    fill = 'Drought Condition'
+  ) + 
+  theme_minimal() +
+  facet_wrap(~year,)
+```
+
+
+```{r}
+ggplot(usdm, aes(x = year, fill = drought_condition)) +
+  geom_bar() +
+  scale_fill_brewer(palette = 'Reds', direction = -1)
+```
+
+```{r}
+```
