@@ -19,6 +19,12 @@ library(grid)
 library(RColorBrewer)
 library(scales)
 library(tidycensus)
+library(GGally)
+library(viridis)
+library(hrbrthemes)
+library(choroplethr)
+library(choroplethrMaps)
+library(gridExtra)
 ```
 
 ## Reading the Data Sources
@@ -26,13 +32,12 @@ Read the pre-processed .rds objects into R:
 ```{r}
 usdm = readRDS('./data/usdm.rds')
 usdm$date = as.Date(usdm$date) # convert date column to date type
-usdm$drought
 head(usdm)
 
-wildfires = readRDS('./data/wildfires.rds')
+wildfires = readRDS('./data/wildfires_v2.rds')
 head(wildfires)
 ```
-Add one additional column to the USDM database `r drought_condition`, which is a factor mapping the drought conditions listed in the metadata to the numerical value. 
+Add one additional column to the USDM database *r drought_condition*, which is a factor mapping the drought conditions listed in the metadata to the numerical value. 
 ```{r}
 usdm$drought_condition = factor(
   usdm$value,
@@ -47,12 +52,7 @@ usdm$drought_condition = factor(
 ```
 
 ## USDM Database: Drought Trends
-<<<<<<< HEAD
 Has drought become more common in the USA over the time period? Has the drought condition of the nation fluctuated over time? The USDM reports six levels of drought condition ranging from *No Drought* to *Exceptional Drought*. To analyze whether drought has become more common in the US from 2004-2018 we can view the percent of time spent in each state as a 100% stacked bar chart over each year, and a smoothed stacked area over each month. 
-=======
-Has drought become more common in the USA over the time period? Has the drought condition of the nation fluctuated over time? The USDM reports six levels of drought condition ranging from *No Drought* to *Exceptional Drought*. To analyze whether drought has become more common in the US from 2004-2018 we can view the percent of time spent in each state as a 100% stacked bar chart over time. 
->>>>>>> 9efa79f7596e757f6ef55bb9f67acd9fc6b17061
-
 ```{r}
 usdm$count = 1
 yearly_proportions = as.data.frame( # create proportion table
@@ -67,7 +67,10 @@ ggplot( # plot proportion table
   yearly_proportions,
   aes(x = year, y = Freq, fill = drought_condition)
 ) +
-  geom_bar(stat = 'identity', position = 'stack') + # stack the frequencies
+  geom_bar(
+    stat = 'identity',
+    position = 'stack',
+    col = 'grey') + # stack the frequencies
   scale_y_continuous(labels = percent) + 
   scale_fill_brewer(palette = 'Reds') +
   labs(
@@ -99,8 +102,8 @@ ggplot( # plot proportion table
   geom_area(
     stat = 'identity',
     position = 'stack',
-  ) + # stack the frequencies
-  #geom_bar(stat = 'identity', position = 'stack') + # stack the frequencies
+    color = 'grey'
+  ) + # stack the areas
   scale_fill_brewer(palette = 'Reds') +
   scale_y_continuous(labels = percent) + 
   facet_grid( # facet by year putting a gap in between 
@@ -201,41 +204,243 @@ The NFIRS wildfires also do not have a clear linear trend from 2004 - 2016 in th
 
 ## State and County-Wide Results
 
-We can investigate if any states or regions are particularly susceptible or non-susceptible to drought. To do so, we can calculate the time each individual state spends in a drought. We can consider a drought any *drought_condition* other than *Abnormally Dry* as a drought state, and derive the time each state spends in a drought, each year. This requires a couple merges of the data - first with 
+We can investigate if any states or regions are particularly susceptible or non-susceptible to drought. To do so, we can calculate the time each individual state spends in a drought. We can consider a drought any *drought_condition* other than *Abnormally Dry* as a drought state, and derive the time each state spends in a drought, each year. This requires a couple merges of the data - first with a data frame of FIPS, which relates a numeric code to a specific state and a specific county.
 
 ```{r}
 fips = tidycensus::fips_codes
-fips
+fips$statefips = as.numeric(fips$state_code) # convert state to numeric
+fips = fips |> dplyr::left_join(
+  data.frame(state = state.abb, region = state.region),
+  by = 'state'
+)
+fips$countyfips = as.numeric(paste0(fips$statefips, fips$county_code))
+head(fips)
 ```
-
+To see which states and regions are particularly dry, as well as to see how this has changed over time, we can create a parallel coordinate plot, plotting each state's proportion over time, and color by region. We will plot every other year to reduce overplotting and color by region.
 
 ```{r}
-ggplot( # plot proportion table
-  monthly_proportions,
-  aes(
-    x = month,
-    y = Freq, fill = drought_condition)
-) +
-  geom_bar(stat = 'identity', position = 'stack') +
-  scale_fill_brewer(palette = 'Reds') +
+usdm_state_county = usdm |> left_join( # join with state information
+  fips[,
+       c('statefips', 'countyfips', 'state', 'state_name', 'region', 'county')
+  ],
+  by = c('statefips', 'countyfips')
+)
+# add boolean column whether there is a drought or not
+usdm_state_county$drought = usdm_state_county$drought_condition != 'No Drought'
+state_yearly_proportions = as.data.frame( # create proportion table
+    xtabs( # number of drought days measured
+      drought ~ year + state, usdm_state_county
+    )/
+    xtabs( # number of total days measured
+      count ~ year + state, usdm_state_county
+  ) 
+) |> 
+  pivot_wider( # put into wide form for parallel coordinate plot
+    names_from = year,
+    values_from = Freq
+  ) |> 
+  left_join( # add region information
+    data.frame(
+      state = c(state.abb, 'DC'),
+      region = c(as.character(state.region), 'Northeast')
+    ),
+    by = 'state'
+  ) 
+
+# create parallel coordinate plot 
+ggparcoord(
+  state_yearly_proportions,
+  columns=seq(2, 14, 2),
+  groupColumn=15,
+  alphaLines=0.8,
+  scale='uniminmax',
+  splineFactor=10,
+  title = "Percent of Year in Drought: Each State 2004 - 2016",
+  ) +
   scale_y_continuous(labels = percent) + 
+  scale_color_viridis(option = 'plasma', discrete = TRUE) + 
+  theme_dark() + 
   labs(
     x = 'Year',
-    y = 'Percent Spent in Drought Condition',
-    title = 'Percent of Year in Each Drought Condition',
-    subtitle = '2004 - 2016',
-    fill = 'Drought Condition'
-  ) + 
-  theme_minimal() +
-  facet_wrap(~year,)
+    y = 'Percent of Year in Drought',
+    color = 'Region'
+  )
 ```
+The North Central and Northeast regions seem to have the least variation - most states in these regions follow the same drought trends, while the states in the West and South have more variation. The nation as a whole follows a similar drought trend during some periods of time ie) 2010 - 2012, while some regions follow different trends during other periods ie) 2006 - 2008. Overall, the West appears to be the driest or most drought-prone region.
 
+There was a great deal of variation in drought conditions from 2012 - 2016 as seen in the plot, especially in the North Central region, as shown above. For a closer look at the transformation, we can plot the percentage in drought for the year, by county, in each of these years.
+```{r}
+
+year_drought_map = function(y) # create a function to map a year
+{
+  drought_year = usdm_state_county |> # calculate percentage drought in 2016
+    filter(year == y) |>
+    group_by(countyfips) |>
+    summarize(value = sum(drought)/length(drought)) |>
+    ungroup() |>
+    transmute(region = countyfips, value = value)
+  return(
+    county_choropleth(
+      drought_year,
+      num_colors = 1,
+      title = sprintf('Percent of Year in Drought, Counties, %s', y)
+    ) + 
+      scale_fill_distiller(
+        direction = 1,
+        limits = c(0, 1),
+        palette = 'OrRd',
+        labels = percent
+      ) + 
+      labs(fill = 'Percent of Year in Drought')
+  )
+}
+grid.arrange(grobs = # arrange maps in one column top to bottom
+  list(
+    year_drought_map(2012),
+    year_drought_map(2016)
+  ),
+  nrow = 2,
+  ncol = 1
+)
+```
+We see the same phenomenon occurring on the map - the North Central and South regions become less drought-stricken from 2012 - 2016 while the Northeast becomes more drought-stricken and the West remains very drought-prone. 
+
+Did the number of wildfires in these areas follow the same trend? We should investigate the maps from 2012-2016. If drought and wildfires are correlated, Northeastern states should show an above average number of wildfires in 2016 and below average in 2012, while South and North Central states should have the opposite trend. Creating this map will also require some additional merges - we will perform this exercise at the state level, rather than the county level, as many counties contain limited or no data in NFIRS. To do so we can use Z-score, standardizing the number of fires per year by state, and compare the Z-score for each state in 2012 and 2016 to the entire timeframe (2004 - 2016).
 
 ```{r}
-ggplot(usdm, aes(x = year, fill = drought_condition)) +
-  geom_bar() +
-  scale_fill_brewer(palette = 'Reds', direction = -1)
+average_fires_per_year = wildfires |> # calculate state average fires per year
+  group_by(STATE) |>
+  count() |>
+  mutate(avg_per_year = n/13)
+
+sd_fires_per_year = as.data.frame( # calculate state sd number of fires
+  xtabs(
+    count ~ STATE + year, wildfires
+  )
+) |> 
+  group_by(STATE) |>
+  summarize(state_sd = sd(Freq))
+
+wildfires_by_year = function(y)
+{
+  wildfires_year = wildfires |> # calculate number of fires in the input year
+  filter(year == y) |>
+  group_by(STATE) |>
+  count() |>
+  left_join(
+    average_fires_per_year[,c('STATE', 'avg_per_year')], # merge with mean
+    by = 'STATE'
+  ) |>
+  left_join(
+    sd_fires_per_year[,c('STATE', 'state_sd')], # merge with sd
+    by = 'STATE'
+  ) |>
+  mutate(z_score = (n-avg_per_year)/state_sd) |>
+  left_join(
+    unique(fips[,c('state', 'state_name')]), # merge with fips data for state
+    by = c('STATE' = 'state')
+  ) |> # add state names
+  mutate(
+    region = tolower(state_name),
+    value = z_score
+  ) # convert region to lowercase, add value
+  return(
+    state_choropleth( # create choropleth map by state
+      wildfires_year,
+      num_colors = 1,
+      title = sprintf(
+        'Z-Score Number of Wildfires per Year Compared to Average, %s',y
+      )
+    ) + 
+      scale_fill_distiller(
+        limits = c(-3, 3),
+        direction = 1,
+        palette = 'OrRd'
+      ) + 
+      labs(fill = 'Wildfires per Year Compare to Average')
+  )
+}
+
+grid.arrange(grobs = # arrange maps in one column top to bottom
+  list(
+    wildfires_by_year(2012),
+    wildfires_by_year(2016)
+  ),
+  nrow = 2,
+  ncol = 1
+)
 ```
 
+
+There is one outlier from this analysis - the state of Wyoming, which had a z-score outside the range of [-3, 3]. This may be a data collection error or perhaps an extraneous event, but in either case this state was excluded. 
+Overall, the map looks quite similar to the drought map - between 2012 and 2016 wildfires in the North Central and South Central regions move from a higher than average rate to a normal to lower than average rate of wildfires. Simultaneously, the Northeast transitions from a lower than average number of wildfires to a much higher than average number of wildfires. The same phenomenon happens for a specific group of the states in Southeast including Georgia and Alabama. The similarity of these trends shows there is a correlation between percent of the year spent in drought, and comparative rate of wildfires per year in 2012 and 2016. States that became more dry experienced a higher than average number of wildfires, and states that became less dry experienced a lower than average number of wildfires from 2012 - 2016.
+
+## Comparing Drought to Wildfires
+Most of this analysis so far has concerned trends among drought and trends among wildfires, identifying similarities between the two. However, a similar analysis can be performed working with the two datasets together.
+
+To visualize the correlation between percent of the year spent in drought and the relative number of wildfires (Z-Score), we can create a scatterplot using the same methods from above. Each data point will represent one state during one year - its percent in drought during that year, and its z-score for the number of wildfires will be calculated and plotted.
 ```{r}
+# Z-score number of wildfires
+wildfires_year = as.data.frame( # wildfire z-scores per state, per year
+  xtabs(count ~ STATE + year, wildfires)
+) |>
+left_join(
+  average_fires_per_year[,c('STATE', 'avg_per_year')], # merge with mean
+  by = 'STATE'
+) |>
+left_join(
+  sd_fires_per_year[,c('STATE', 'state_sd')], # merge with sd
+  by = 'STATE'
+) |>
+mutate(z_score = (Freq-avg_per_year)/state_sd) |>
+left_join(
+  unique(fips[,c('state', 'region')]), # merge with fips data for state
+  by = c('STATE' = 'state')
+)
+
+# Proportion in drought by year, like above
+state_yearly_proportions = as.data.frame( # create proportion table
+    xtabs( # number of drought days measured
+      drought ~ year + state, usdm_state_county
+    )/
+    xtabs( # number of total days measured
+      count ~ year + state, usdm_state_county
+    )
+) |>
+mutate(proportion_drought = Freq)
+
+# combined plot (not faceted)
+ggplot(
+  state_yearly_measurements |> filter(!is.na(region)), # exclude DC
+  aes(x = proportion_drought, y = z_score, color = region)) +
+  geom_point() +
+  scale_x_continuous(labels = percent) +
+  labs(
+    x = "Percent of Year Spent in Drought",
+    y = 'Z-Score Yearly Number of Wildfires',
+    title = 'Proportion of Year in Drought vs. Z-Score Number Wildfires',
+    subtitle = 'US States, 2004-2016',
+    color = 'Region'
+  ) +
+  theme(aspect.ratio = 0.8)
+
+# faceted plot
+  ggplot(
+  state_yearly_measurements |> filter(!is.na(region)), # exclude DC
+  aes(x = proportion_drought, y = z_score)) +
+  geom_point(color = 'steelblue') +
+  facet_wrap(
+    ~region,
+    nrow = 2
+  ) +
+  scale_x_continuous(labels = percent) +
+  labs(
+    x = "Percent of Year Spent in Drought",
+    y = 'Z-Score Yearly Number of Wildfires',
+    title = 'Proportion of Year in Drought vs. Z-Score Number Wildfires',
+    subtitle = 'US States, 2004-2016',
+  ) +
+  theme(aspect.ratio = 0.8)
 ```
+Overall there is a positive correlation between the percent of the year spent in drought, and the relative number of wildfires in a particular year. The correlation seems stronger in the Northeast, South and North Central regions than in the West. This is perhaps because the west is more drought-prone in general, meaning a small change in drought status does not make a large difference as the states are in a drought more years than not.
+
