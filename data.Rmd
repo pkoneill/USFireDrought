@@ -116,7 +116,6 @@ According to the documentation of usdm data set, "No data were lost or omitted d
 To further confirm, we used *plot_missing* function from library *redav* to check the missing percentage and pattern.
 
 ```{r}
-#remotes::install_github("jtr13/redav")
 usdm <- readRDS("./data/usdm.rds")
 usdm$date <- as.Date(usdm$date) # convert date column to date type
 library(redav)
