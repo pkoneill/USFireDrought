@@ -353,9 +353,9 @@ wildfires_by_year = function(y)
   )
 }
 
-layer_no <- grep("GeomText", sapply(map1$layers, function(x) class(x$geom)[1]))
 map1 = wildfires_by_year(2012)[[1]]
 map2 = wildfires_by_year(2016)[[1]]
+layer_no <- grep("GeomText", sapply(map1$layers, function(x) class(x$geom)[1]))
 map1$layers[[layer_no]]$default_aes$size = 2
 map2$layers[[layer_no]]$default_aes$size = 2
 
@@ -594,3 +594,14 @@ fires_by_drought_condition[, c(1, 5, 6)] |> pivot_longer(
   labs(title = 'Percent of Time in Drought Condition vs. Share of wildfires')
 ```
 We can see that the country spent around 55% of the time in "No Drought" condition, but only 45% of wildfires occurred during that time. For all other drought conditions, the inverse relationship is true: a disproportionately high number of wildfires occurred while the country was in a drought.
+
+## Main Takeaways
+In the first part of analysis, we found the country seems to travel through periods of drought without any real seasonality or significant long-term development from 2004 - 2016. In addition, there were no obvious similarities in the nationwide number of wildfires each year vs. the national 'dryness'.
+
+However, making our analysis more granular by region, state and county, we found the regions of the USA followed similar trends over time in drought condition and number of wildfires. Between 2012 and 2016 there were significant changes in many regions of the country. Regions that became drier during that timeframe also had relatively more wildfires. Regions that became less dry, or more wet, had relatively fewer wildfires.
+
+Directly merging the datasets together, we were able to correlate each state's relative number of wildfires and percent of the year in drought, for each year. We found there was a positive correlation overall between the percent of time a state is in a drought, and the relative number of wildfires. The strength of this correlation varied with the geographic region.
+
+Finally, we found wildfires disproportionately occur when areas are in a drought. Although the nation was not in a drought for the majority of 2004 - 2016, the majority of wildfires occurred while the nation was in a drought.
+
+
