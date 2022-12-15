@@ -6,4 +6,8 @@ site: bookdown::bookdown_site
 ---
 
 # Introduction
+The topic we are working on is wildfires situation and drought conditions in the United States. There's no doubt that the wildfires are raising more attention from societies in the recent years. In fact, it has become a symbol to have wildfires during the summer time in a lof of places within the states. Wildfires can cause many damages including disrupt transportation, a deterioration of the air quality, and loss of property, crops, resources, animals and people. 
 
+We are interested in drought and wildfire because they are major natural disasters that can have devastating impacts on the environment and human populations. Droughts can lead to water scarcity, crop failures, and famine while wildfires can cause destruction of ecosystems, displacement of people, and loss of life. Understanding the causes and effects of these disasters can help us manage and prepare for them in the future.
+
+The relationship between drought and fire is complex. The timing, intensity, and frequency of drought events have divergent impacts on fuel flammability and fire behavior. Rapidly drying abundant fuels in forest understories and grasslands after a wet spring can feed larger fires. Due to this complexity and uncertainty between the two factors, we are intrigued to explore more about their implicit relationship so that to better help us understand wildfires causes and trends, drought conditions trend, and prevent worse environmental situations. 

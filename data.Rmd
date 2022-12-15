@@ -1,8 +1,25 @@
 # Data 
 
 ## Sources
+We have two resources of data: The [CDC United States Drought Monitor](https://data.cdc.gov/Environmental-Health-Toxicology/United-States-Drought-Monitor-2000-2016/spsk-9jj6) and [NFIRS Public Data](https://www.fema.gov/about/openfema/data-sets/fema-usfa-nfirs-annual-data). 
+
+### CDC United States Drought Monitor (usdm)
+The CDC United States Drought Monitor (usdm) describes the data on the county level for the contiguous United States. It includes weekly United States Drought Monitor (USDM) data from 2000-2016 prodivded by the Cooperative Institute for Climate and Satellites - North Carolina. These data are used by the CDC's National Environmental Public Health Tracking Network to generate drought measures. The time period of the data set is January 4, 2000 – December 27, 2016, known to be accurate as of time period end date. Data were downloaded from the Drought Monitor server and were originally provided as weekly county values. The highest category county was used as the final county value. For example, if a county was 65% in D2 and 35% in D3, the final value for the county would be D3.
+
+To be more specific, the dataset includes the following variables:
+(a) year: year of value in plain text
+(b) month: month of value in plain text
+(c) day: day of value in plain text
+(d) stateflips: state FIPS code in plain text
+(e) countyflips: county FIPS code in plain text
+(f) value: weekly USDM (United States Drought Monitor) value in number 
 
 ## Cleaning / transformation
+1. CDC United States Drought Monitor (usdm)
+For the CDC United States Drought Monitor (usdm) data set, considering the dataset size and completeness, we filtered our data in the range of 2004 to 2016. The dataset is quite clean itself. Thus, we did a few add-on steps to make our data manipulation easier.
+(a) adding a column that formats date to be in the form of "yy-mm-dd";
+(b) match the value with drought condition as a categorical variable. 
 
 ## Missing value analysis
-
+1. CDC United States Drought Monitor (usdm)
+According to  the documentation of usdm data set, "No data were lost or omitted during calculation. All data that were available were used. Data will be updated on an ad hoc basis, when necessary". 

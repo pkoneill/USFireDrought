@@ -1,3 +1,85 @@
 # Interactive component
+## Data preprocessing for d3 component 
+```{r}
+# read data
+usdm <- read.csv('./data/usdm.csv')
+wildfires <- read.csv('./data/wildfires.csv')
+```
+
+```{r}
+head(usdm)
+```
+```{r}
+head(wildfires)
+```
+```{r}
+library(dplyr)
+wildfires2016 <- filter(wildfires, year==2016)
+wildfires2016
+library(pivottabler)
+pt <- PivotTable$new()
+pt$addData(wildfires2016)
+
+pt$addRowDataGroups("STATE")             #     **** LINE BELOW ADDED ****
+pt$defineCalculation(calculationName="count", summariseExpression="n()")
+pt$renderPivot()
+
+state_num_wildfire <- pt$asDataFrame()
+write.csv(state_num_wildfire, 'state_num_wildfire2016.csv')
+
+```
+
+```{r}
+library(dplyr)
+wildfires2015 <- filter(wildfires, year==2015)
+wildfires2015
+library(pivottabler)
+pt <- PivotTable$new()
+pt$addData(wildfires2015)
+
+pt$addRowDataGroups("STATE")             #     **** LINE BELOW ADDED ****
+pt$defineCalculation(calculationName="count", summariseExpression="n()")
+pt$renderPivot()
+
+state_num_wildfire <- pt$asDataFrame()
+write.csv(state_num_wildfire, 'state_num_wildfire2015.csv')
+
+```
+
+```{r}
+library(dplyr)
+wildfires2014 <- filter(wildfires, year==2014)
+wildfires2014
+library(pivottabler)
+pt <- PivotTable$new()
+pt$addData(wildfires2014)
+
+pt$addRowDataGroups("STATE")             #     **** LINE BELOW ADDED ****
+pt$defineCalculation(calculationName="count", summariseExpression="n()")
+pt$renderPivot()
+
+state_num_wildfire <- pt$asDataFrame()
+write.csv(state_num_wildfire, 'state_num_wildfire2014.csv')
+
+```
+
+```{r}
+library(dplyr)
+wildfires2013 <- filter(wildfires, year==2013)
+wildfires2013
+library(pivottabler)
+pt <- PivotTable$new()
+pt$addData(wildfires2013)
+
+pt$addRowDataGroups("STATE")             #     **** LINE BELOW ADDED ****
+pt$defineCalculation(calculationName="count", summariseExpression="n()")
+pt$renderPivot()
+
+state_num_wildfire <- pt$asDataFrame()
+write.csv(state_num_wildfire, 'state_num_wildfire2013.csv')
+
+```
+## Code for d3 component 
+<iframe src="d3_viz.html" width="400" height="300"></iframe>
 
 
