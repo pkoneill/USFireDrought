@@ -1,7 +1,7 @@
-# Interactive component
-## Data preprocessing for d3 component 
+# Interactive Component
+## Data Preprocessing for d3 Component 
 
-The preprocessing for the interactive component consisted of calculating the number of wildfires per state, per year. We chose the subset of 2013 - 2016 for an interactive component, resulting in the four tables below after preprocessing.
+The preprocessing for the interactive component consisted of calculating the number of wildfires per state, per year. We chose the subset of 2013 - 2016 for an interactive component, resulting in four tables, one per year, after preprocessing.
 
 Recall, the NFIRS database includes only a sample of total fire data. As such, rather than interpret the number of wildfires in each state as a raw number, it is more keen to track the number of NFIRS wildfires over time, observing a general trend. 
 
@@ -13,10 +13,10 @@ library(pivottabler)
 
 ```{r}
 # read data
-#usdm <- readRDS('./data/usdm.rds')
-#wildfires <- readRDS('./data/wildfires.rds')
-#wildfires$date = lubridate::mdy(wildfires$INC_DATE) # convert date
-#wildfires$year = year(wildfires$date) # pull year from date
+# usdm <- readRDS('./data/usdm.rds')
+# wildfires <- readRDS('./data/wildfires.rds')
+# wildfires$date = lubridate::mdy(wildfires$INC_DATE) # convert date
+# wildfires$year = year(wildfires$date) # pull year from date
 ```
 
 ```{r}
@@ -28,70 +28,64 @@ library(pivottabler)
 ```
 
 ```{r}
-wildfires2016 <- filter(wildfires, year==2016)
-pt <- PivotTable$new()
-pt$addData(wildfires2016)
-
-pt$addRowDataGroups("STATE")             #     **** LINE BELOW ADDED ****
-pt$defineCalculation(calculationName="count", summariseExpression="n()")
-pt$renderPivot()
-
-state_num_wildfire <- pt$asDataFrame()
-#write.csv(state_num_wildfire, 'state_num_wildfire2016.csv')
-
-```
-
-```{r}
-library(dplyr)
-wildfires2015 <- filter(wildfires, year==2015)
-library(pivottabler)
-pt <- PivotTable$new()
-pt$addData(wildfires2015)
-
-pt$addRowDataGroups("STATE")             #     **** LINE BELOW ADDED ****
-pt$defineCalculation(calculationName="count", summariseExpression="n()")
-pt$renderPivot()
-
-state_num_wildfire <- pt$asDataFrame()
-#write.csv(state_num_wildfire, 'state_num_wildfire2015.csv')
+# wildfires2016 <- filter(wildfires, year==2016)
+# pt <- PivotTable$new()
+# pt$addData(wildfires2016)
+# 
+# pt$addRowDataGroups("STATE")             #     **** LINE BELOW ADDED ****
+# pt$defineCalculation(calculationName="count", summariseExpression="n()")
+# pt$renderPivot()
+# 
+# state_num_wildfire <- pt$asDataFrame()
+# write.csv(state_num_wildfire, 'state_num_wildfire2016.csv')
 
 ```
 
 ```{r}
-library(dplyr)
-wildfires2014 <- filter(wildfires, year==2014)
-library(pivottabler)
-pt <- PivotTable$new()
-pt$addData(wildfires2014)
-
-pt$addRowDataGroups("STATE")             #     **** LINE BELOW ADDED ****
-pt$defineCalculation(calculationName="count", summariseExpression="n()")
-pt$renderPivot()
-
-state_num_wildfire <- pt$asDataFrame()
-#write.csv(state_num_wildfire, 'state_num_wildfire2014.csv')
+# wildfires2015 <- filter(wildfires, year==2015)
+# pt <- PivotTable$new()
+# pt$addData(wildfires2015)
+# 
+# pt$addRowDataGroups("STATE")             #     **** LINE BELOW ADDED ****
+# pt$defineCalculation(calculationName="count", summariseExpression="n()")
+# pt$renderPivot()
+# 
+# state_num_wildfire <- pt$asDataFrame()
+# write.csv(state_num_wildfire, 'state_num_wildfire2015.csv')
 
 ```
 
 ```{r}
-library(dplyr)
-wildfires2013 <- filter(wildfires, year==2013)
-library(pivottabler)
-pt <- PivotTable$new()
-pt$addData(wildfires2013)
-
-pt$addRowDataGroups("STATE")             #     **** LINE BELOW ADDED ****
-pt$defineCalculation(calculationName="count", summariseExpression="n()")
-pt$renderPivot()
-
-state_num_wildfire <- pt$asDataFrame()
-#write.csv(state_num_wildfire, 'state_num_wildfire2013.csv')
+# wildfires2014 <- filter(wildfires, year==2014)
+# pt <- PivotTable$new()
+# pt$addData(wildfires2014)
+# 
+# pt$addRowDataGroups("STATE")             #     **** LINE BELOW ADDED ****
+# pt$defineCalculation(calculationName="count", summariseExpression="n()")
+# pt$renderPivot()
+# 
+# state_num_wildfire <- pt$asDataFrame()
+# write.csv(state_num_wildfire, 'state_num_wildfire2014.csv')
 
 ```
 
-## Code for d3 component 
+```{r}
+# wildfires2013 <- filter(wildfires, year==2013)
+# pt <- PivotTable$new()
+# pt$addData(wildfires2013)
+# 
+# pt$addRowDataGroups("STATE")             #     **** LINE BELOW ADDED ****
+# pt$defineCalculation(calculationName="count", summariseExpression="n()")
+# pt$renderPivot()
+# 
+# state_num_wildfire <- pt$asDataFrame()
+# write.csv(state_num_wildfire, 'state_num_wildfire2013.csv')
+
+```
+
+## d3 Component Visualization
 <iframe src="d3-viz.html"
-style="position: relative; height: 100%; width: 100%;">
+style="overflow:auto; height: 100%; width: 100%;">
 </iframe>
 
 

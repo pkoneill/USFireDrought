@@ -80,7 +80,7 @@ For the address information, we have variables:
 | STATE_ID | state of incident  | str       |
 | ZIP5     | zipcode            | int       |
 
-## Cleaning/transformation
+## Cleaning/Transformation
 1.  CDC United States Drought Monitor (usdm) 
 
 For the CDC United States. Drought Monitor (usdm) data set, considering the dataset size and completeness, we filtered our data in the range of 2004 to 2016. The dataset is quite clean itself. Thus, we did a few add-on steps to make our data manipulation easier.
@@ -96,17 +96,18 @@ For the CDC United States. Drought Monitor (usdm) data set, considering the data
 (c) For consistency, we put all addresses in uppercase. 
 (d) Dropped duplicates for the merged DataFrame.
 (e) Filtered the merged dataset only to include INC_TYPE within:
+
 | INC_TYPE | Description                           |
 |----------|---------------------------------------|
 | 14       | Natural vegetation fire               |
 | 140      | Natural vegetation fire, other        |
-| 141      | Forest, woods or wildland fire        |
+| 141      | Forest woods or wildland fire        |
 | 142      | Brush or brush-and-grass mixture fire |
 | 143      | Grass fire                            |
 
 At the end, we have a wildfire dataset that contains ID, INC_TYPE, FDID, CITY, STATE, and ZIP5 as columns for further analysis. 
 
-## Missing value analysis
+## Missing Value Analysis
 
 1.  CDC United States Drought Monitor (usdm) 
 
@@ -115,7 +116,7 @@ According to the documentation of usdm data set, "No data were lost or omitted d
 To further confirm, we used *plot_missing* function from library *redav* to check the missing percentage and pattern.
 
 ```{r}
-remotes::install_github("jtr13/redav")
+#remotes::install_github("jtr13/redav")
 usdm <- readRDS("./data/usdm.rds")
 usdm$date <- as.Date(usdm$date) # convert date column to date type
 library(redav)
@@ -135,4 +136,5 @@ We further verify after preprocessing that our wildfire dataset is complete belo
 wildfires <- readRDS('./data/wildfires.rds')
 plot_missing(wildfires)
 ```
+
 We can see that the data, after preprocessing, was complete. 

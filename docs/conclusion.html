@@ -52,9 +52,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-
-<script src="libs/pivottabler-binding-1.5.4/pivottabler.js"></script>
 
 
 
@@ -78,17 +75,14 @@
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="proposal.html"><a href="proposal.html"><i class="fa fa-check"></i><b>2</b> Proposal</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="proposal.html"><a href="proposal.html#research-topic"><i class="fa fa-check"></i><b>2.1</b> Research topic</a></li>
-<li class="chapter" data-level="2.2" data-path="proposal.html"><a href="proposal.html#data-availability"><i class="fa fa-check"></i><b>2.2</b> Data availability</a></li>
+<li class="chapter" data-level="2.1" data-path="proposal.html"><a href="proposal.html#research-topic"><i class="fa fa-check"></i><b>2.1</b> Research Topic</a></li>
+<li class="chapter" data-level="2.2" data-path="proposal.html"><a href="proposal.html#data-availability"><i class="fa fa-check"></i><b>2.2</b> Data Availability</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>3</b> Data</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="data.html"><a href="data.html#sources"><i class="fa fa-check"></i><b>3.1</b> Sources</a>
-<ul>
-<li class="chapter" data-level="3.1.1" data-path="data.html"><a href="data.html#cdc-united-states-drought-monitor-usdm"><i class="fa fa-check"></i><b>3.1.1</b> CDC United States Drought Monitor (usdm)</a></li>
-</ul></li>
-<li class="chapter" data-level="3.2" data-path="data.html"><a href="data.html#cleaning-transformation"><i class="fa fa-check"></i><b>3.2</b> Cleaning / transformation</a></li>
-<li class="chapter" data-level="3.3" data-path="data.html"><a href="data.html#missing-value-analysis"><i class="fa fa-check"></i><b>3.3</b> Missing value analysis</a></li>
+<li class="chapter" data-level="3.1" data-path="data.html"><a href="data.html#sources"><i class="fa fa-check"></i><b>3.1</b> Sources</a></li>
+<li class="chapter" data-level="3.2" data-path="data.html"><a href="data.html#cleaningtransformation"><i class="fa fa-check"></i><b>3.2</b> Cleaning/Transformation</a></li>
+<li class="chapter" data-level="3.3" data-path="data.html"><a href="data.html#missing-value-analysis"><i class="fa fa-check"></i><b>3.3</b> Missing Value Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
 <ul>
@@ -99,10 +93,10 @@
 <li class="chapter" data-level="4.5" data-path="results.html"><a href="results.html#comparing-drought-to-wildfires"><i class="fa fa-check"></i><b>4.5</b> Comparing Drought to Wildfires</a></li>
 <li class="chapter" data-level="4.6" data-path="results.html"><a href="results.html#main-takeaways"><i class="fa fa-check"></i><b>4.6</b> Main Takeaways</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a>
+<li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive Component</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#data-preprocessing-for-d3-component"><i class="fa fa-check"></i><b>5.1</b> Data preprocessing for d3 component</a></li>
-<li class="chapter" data-level="5.2" data-path="interactive-component.html"><a href="interactive-component.html#code-for-d3-component"><i class="fa fa-check"></i><b>5.2</b> Code for d3 component</a></li>
+<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#data-preprocessing-for-d3-component"><i class="fa fa-check"></i><b>5.1</b> Data Preprocessing for d3 Component</a></li>
+<li class="chapter" data-level="5.2" data-path="interactive-component.html"><a href="interactive-component.html#d3-component-visualization"><i class="fa fa-check"></i><b>5.2</b> d3 Component Visualization</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -126,6 +120,9 @@
             <section class="normal" id="section-">
 <div id="conclusion" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Conclusion<a href="conclusion.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The main takeaway of this analysis was that there is a positive correlation overall between the percent of time spent in drought, and the relative number of wildfires a state or region experiences. The strength of this correlation varies by region - states that are not typically dry may experience a relatively extreme number of wildfires in a severe drought, while a more drought-prone state may have a more constant, though potentially high, number of fires.</p>
+<p>The limitations of this exploration was the completeness of the NFIRS databaset. As mentioned on the <a href="https://www.fema.gov/about/openfema/data-sets/fema-usfa-nfirs-annual-data">NFIRS site</a>, the dataset is only a subset of the true number of fires that occur in the United States and should not be used to determine the total number of fires or total loss from fires for any given time. Because this data is only a subset, and is recorded by Fire Department personnel, there is a chance the dataset is not wholly reflective of the wildfires situation in the United States. There could be biases if certain states or regions are more active in recording NFIRS incidents. The data also had to be filtered to include certain wildfire-specific incident types. Because the incident type is determine by a human, there is potential for mis-classification as well as missing values. To deal with these challenges we did not use the raw number of wildfires in a state when comparing with drought - rather, we used the relative number of wildfires (z-score) in particular states, and examined trends in wildfires over time.</p>
+<p>For future analysis, it would be interesting to analyze data more in-depth at the county level. The USDM dataset contains extensive and high-quality county-wide data, but NFIRS was more useful at the state level (the county was not recorded in NFIRS incidents and had to be merged from zipcode). A more extensive wildfire dataset, or more extensive analysis on NFIRS, could reveal how drought affects wildfires in the most susceptible states, such as California.</p>
 
 </div>
             </section>
