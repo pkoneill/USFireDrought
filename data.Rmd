@@ -1,25 +1,79 @@
-# Data 
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Data
 
 ## Sources
-We have two resources of data: The [CDC United States Drought Monitor](https://data.cdc.gov/Environmental-Health-Toxicology/United-States-Drought-Monitor-2000-2016/spsk-9jj6) and [NFIRS Public Data](https://www.fema.gov/about/openfema/data-sets/fema-usfa-nfirs-annual-data). 
 
-### CDC United States Drought Monitor (usdm)
-The CDC United States Drought Monitor (usdm) describes the data on the county level for the contiguous United States. It includes weekly United States Drought Monitor (USDM) data from 2000-2016 prodivded by the Cooperative Institute for Climate and Satellites - North Carolina. These data are used by the CDC's National Environmental Public Health Tracking Network to generate drought measures. The time period of the data set is January 4, 2000 – December 27, 2016, known to be accurate as of time period end date. Data were downloaded from the Drought Monitor server and were originally provided as weekly county values. The highest category county was used as the final county value. For example, if a county was 65% in D2 and 35% in D3, the final value for the county would be D3.
+We have two resources of data: The [CDC United States Drought
+Monitor](https://data.cdc.gov/Environmental-Health-Toxicology/United-States-Drought-Monitor-2000-2016/spsk-9jj6)
+and [Annual NFIRS Public
+Data](https://www.fema.gov/about/openfema/data-sets/fema-usfa-nfirs-annual-data).
 
-To be more specific, the dataset includes the following variables:
-(a) year: year of value in plain text
-(b) month: month of value in plain text
-(c) day: day of value in plain text
-(d) stateflips: state FIPS code in plain text
-(e) countyflips: county FIPS code in plain text
-(f) value: weekly USDM (United States Drought Monitor) value in number 
+1.  CDC United States Drought Monitor (usdm)
 
-## Cleaning / transformation
-1. CDC United States Drought Monitor (usdm)
-For the CDC United States Drought Monitor (usdm) data set, considering the dataset size and completeness, we filtered our data in the range of 2004 to 2016. The dataset is quite clean itself. Thus, we did a few add-on steps to make our data manipulation easier.
-(a) adding a column that formats date to be in the form of "yy-mm-dd";
-(b) match the value with drought condition as a categorical variable. 
+The CDC United States Drought Monitor (usdm) describes the data on the
+county level for the contiguous United States. It includes weekly United
+States Drought Monitor (USDM) data from 2000-2016 prodivded by the
+Cooperative Institute for Climate and Satellites - North Carolina. These
+data are used by the CDC's National Environmental Public Health Tracking
+Network to generate drought measures. The time period of the data set is
+January 4, 2000 -- December 27, 2016, known to be accurate as of time
+period end date. Data were downloaded from the Drought Monitor server
+and were originally provided as weekly county values. The highest
+category county was used as the final county value. For example, if a
+county was 65% in D2 and 35% in D3, the final value for the county would
+be D3.
+
+To be more specific, the dataset includes the following variables: (a)
+year: year of value in plain text (b) month: month of value in plain
+text (c) day: day of value in plain text (d) stateflips: state FIPS code
+in plain text (e) countyflips: county FIPS code in plain text (f) value:
+weekly USDM (United States Drought Monitor) value in number range from
+0-4.
+
+2.  Annual NFIRS (National Fire Incident Reporting System) Public Data
+
+The annual National Fire Incident Reporting System (NFIRS) Public Data Release 
+files are provided by the U.S. Fire Administration's (USFA) National Fire Data 
+Center (NFDC). The NFIRS is a reporting standard that fire departments use to 
+uniformly report on the full range of their activities, from fire to emergency 
+medical services (EMS) to equipment involved in the response.
+
+We use the data between 2004 and 2016. For each year, the data consists
+of three parts: fires, incidents, and addresses. 
+For incidents, we have variables: (a)STATE (b)FDID: fire department ID (c)INC_DATE: incident date (d)INC_NO: incident number (e)EXP_NO: exposure number. 
+For fires, we have variables: (a)STATE (b)FDID: fire department ID (c)INC_DATE: incident date (d)INC_NO: incident number (e)EXP_NO: exposure number (f)AREA_ORIG (h)FIRST_IGN (i)CAUSE_IGN. 
+For the address information, we have variables: (a)STATE (b)FDID: fire department ID (c)INC_DATE: incident date (d)INC_NO: incident number (e)EXP_NO: exposure number (f)CITY (g)STATE_ID' (h)ZIP5. 
+
+## Cleaning/transformation
+1.  CDC United States Drought Monitor (usdm) 
+
+For the CDC United States. Drought Monitor (usdm) data set, considering the dataset size and completeness, we filtered our data in the range of 2004 to 2016. The dataset is quite clean itself. Thus, we did a few add-on steps to make our data manipulation easier.
+
+(a) Add a column that formats date to be in the form of "yy-mm-dd": we add a column that combines 'year', 'month', and 'date'.
+(b) Match the value with drought condition as a categorical variable: the value column ranges from 0-4 and are defined as follows: D0: Abnormally Dry; D1: Moderate Drought; D2: Severe Drought; D3: Extreme Drought; D4: Exceptional Drought; No Drought is noted as 9. So we add a column that match the value with corresponding drought condition as a categorical variable so make the data set more understandable.
+(c) Assign each row to 1 in the count column: adding a count column could help us in counting the number of rows by assigning each row of value 1.
+
+2.  Annual NFIRS (National Fire Incident Reporting System) Public Data
+
+(a) Create a unique ID for each entry: The unique identifier for these incident-associated records is the combination of the State, fire department ID, incident date, incident number, and exposure number (STATE, FDID, INC_DATE, INC_NO, and EXP_NO), (according to FIRS Version 5.0 Fire Data Analysis Guidelines and Issues Page 8 https://www.usfa.fema.gov/downloads/pdf/nfirs/nfirs_data_analysis_guidelines_issues.pdf). 
+(b) For consistency, we put all addresses in uppercase. 
+(c) Drop duplicates for incidents, fires, and address data. 
+(d) Merge 3 dataset into 1 dataframe
+
+At the end, we have a wildfire dataset that have ID, AREA_ORIG, FIRST_IGN, CAUSE_IGN, INC_TYPE, INC_TYPE, FDID, CITY, STATE, and ZIP5 as columns for further analysis. 
 
 ## Missing value analysis
-1. CDC United States Drought Monitor (usdm)
-According to  the documentation of usdm data set, "No data were lost or omitted during calculation. All data that were available were used. Data will be updated on an ad hoc basis, when necessary". 
+
+1.  CDC United States Drought Monitor (usdm) 
+
+According to the documentation of usdm data set, "No data were lost or omitted during calculation. All data that were available were used. Data will be updated on an ad hoc basis, when necessary". We also checked in our scripts by calling isnull(), isna() function to further confirm that the data set doesn't miss any data value.
+
+
+2.  Annual NFIRS (National Fire Incident Reporting System) Public Data
+
+We identified: in the incident data part, there are 3693 missing values for the 'STATE' variable; in the fires data portion, there are 1125 missing values for the 'STATE' variable, and not all years have INCIDENT_KEY. We first filled NaN for important categories such as 'STATE', 'INC_NO', 'AREA_ORIG', and 'FIRST_IGN', impute with 'UNKNOWN'. Then, considering the large size of the data set, which is sufficient for our analysis purpose, we put all addresses in uppercase and remove NaN missing values. 
