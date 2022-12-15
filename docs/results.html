@@ -52,9 +52,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-
-<script src="libs/pivottabler-binding-1.5.4/pivottabler.js"></script>
 
 
 
@@ -78,17 +75,14 @@
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="proposal.html"><a href="proposal.html"><i class="fa fa-check"></i><b>2</b> Proposal</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="proposal.html"><a href="proposal.html#research-topic"><i class="fa fa-check"></i><b>2.1</b> Research topic</a></li>
-<li class="chapter" data-level="2.2" data-path="proposal.html"><a href="proposal.html#data-availability"><i class="fa fa-check"></i><b>2.2</b> Data availability</a></li>
+<li class="chapter" data-level="2.1" data-path="proposal.html"><a href="proposal.html#research-topic"><i class="fa fa-check"></i><b>2.1</b> Research Topic</a></li>
+<li class="chapter" data-level="2.2" data-path="proposal.html"><a href="proposal.html#data-availability"><i class="fa fa-check"></i><b>2.2</b> Data Availability</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>3</b> Data</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="data.html"><a href="data.html#sources"><i class="fa fa-check"></i><b>3.1</b> Sources</a>
-<ul>
-<li class="chapter" data-level="3.1.1" data-path="data.html"><a href="data.html#cdc-united-states-drought-monitor-usdm"><i class="fa fa-check"></i><b>3.1.1</b> CDC United States Drought Monitor (usdm)</a></li>
-</ul></li>
-<li class="chapter" data-level="3.2" data-path="data.html"><a href="data.html#cleaning-transformation"><i class="fa fa-check"></i><b>3.2</b> Cleaning / transformation</a></li>
-<li class="chapter" data-level="3.3" data-path="data.html"><a href="data.html#missing-value-analysis"><i class="fa fa-check"></i><b>3.3</b> Missing value analysis</a></li>
+<li class="chapter" data-level="3.1" data-path="data.html"><a href="data.html#sources"><i class="fa fa-check"></i><b>3.1</b> Sources</a></li>
+<li class="chapter" data-level="3.2" data-path="data.html"><a href="data.html#cleaningtransformation"><i class="fa fa-check"></i><b>3.2</b> Cleaning/Transformation</a></li>
+<li class="chapter" data-level="3.3" data-path="data.html"><a href="data.html#missing-value-analysis"><i class="fa fa-check"></i><b>3.3</b> Missing Value Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
 <ul>
@@ -99,10 +93,10 @@
 <li class="chapter" data-level="4.5" data-path="results.html"><a href="results.html#comparing-drought-to-wildfires"><i class="fa fa-check"></i><b>4.5</b> Comparing Drought to Wildfires</a></li>
 <li class="chapter" data-level="4.6" data-path="results.html"><a href="results.html#main-takeaways"><i class="fa fa-check"></i><b>4.6</b> Main Takeaways</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a>
+<li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive Component</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#data-preprocessing-for-d3-component"><i class="fa fa-check"></i><b>5.1</b> Data preprocessing for d3 component</a></li>
-<li class="chapter" data-level="5.2" data-path="interactive-component.html"><a href="interactive-component.html#code-for-d3-component"><i class="fa fa-check"></i><b>5.2</b> Code for d3 component</a></li>
+<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#data-preprocessing-for-d3-component"><i class="fa fa-check"></i><b>5.1</b> Data Preprocessing for d3 Component</a></li>
+<li class="chapter" data-level="5.2" data-path="interactive-component.html"><a href="interactive-component.html#d3-component-visualization"><i class="fa fa-check"></i><b>5.2</b> d3 Component Visualization</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -128,52 +122,52 @@
 <h1><span class="header-section-number">Chapter 4</span> Results<a href="results.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="reading-the-data-sources" class="section level2 hasAnchor" number="4.1">
 <h2><span class="header-section-number">4.1</span> Reading the Data Sources<a href="results.html#reading-the-data-sources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The pre-processed .rds objects were read into R. An additional column was added to the USDM database <em>r drought_condition</em>, which is a factor mapping the drought conditions listed in the metadata to the numerical value.</p>
+<p>The pre-processed .rds objects were read into R. An additional column was added to the USDM database <em>drought_condition</em>, which is a factor mapping the drought conditions listed in the metadata to the numerical value.</p>
 </div>
 <div id="usdm-database-drought-trends" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> USDM Database: Drought Trends<a href="results.html#usdm-database-drought-trends" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Has drought become more common in the USA over the time period? Has the drought condition of the nation fluctuated over time? What sort of patterns are there? The USDM reports six levels of drought condition ranging from <em>No Drought</em> to <em>Exceptional Drought</em>. To analyze whether drought has become more common in the US from 2004-2016 and view the overall national drought trend, we can view the percent of time spent in the nation as a 100% stacked bar chart over each year, and a stacked area chart over each month.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>Creating a more granular stacked area chart to show the data each month reveals additional detail:</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>There does not appear to be any linear trend for drought in the nation. However, it does appear the country has spent slightly more time in <em>Abnormally Dry</em> - <em>Exceptional Drought</em> periods from 2011-2016 than it has from 2004 - 2010, perhaps indicating drought is becoming slightly more common. There does not appear to be any recurring seasonality over the years. Rather, periods of drought seem to come and go through the years and seasons.</p>
 </div>
 <div id="nfirs-database-wildfire-trends" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> NFIRS Database: Wildfire Trends<a href="results.html#nfirs-database-wildfire-trends" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>What about the number of wildfires? Has the number of wildfires recorded in NFIRS increased over the years? Is there a seasonality? We can create similar visualizations to the USDM data with the number of fires recorded in NFIRS.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>Similarly, we create a more granular bar chart to show the data each month:</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>The NFIRS wildfires also do not have a clear linear trend from 2004 - 2016 in the number of wildfires. Number of wildfires does have more of a seasonality - more wildfires seem to occur near the middle of each year, which is also the hottest time of year. The number of wildfires by month does not yet seem to have a clear relationship to the drought trends - large nationwide trends in drought prevalence are not clearly mirrored in the number of wildfires, at least at the nationwide level. More analysis will be required to examine the relationship between these two datasets.</p>
 </div>
 <div id="state-and-county-wide-results" class="section level2 hasAnchor" number="4.4">
 <h2><span class="header-section-number">4.4</span> State and County-Wide Results<a href="results.html#state-and-county-wide-results" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can investigate if any states or regions are particularly susceptible or resilient to drought. To do so, we can calculate the time each individual state spends in a drought. We can consider a drought any <em>drought_condition</em> other than <em>Abnormally Dry</em> as a drought state, and derive the time each state spends in a drought, each year. A merge with a dataset of FIPS, which relates a numeric code to a specific state and a specific county, is required for this exercise.</p>
 <p>To understand which states and regions are particularly dry, as well as the change in drought over time, we can create a parallel coordinate plot, plotting each state’s proportion in drought over time. We will plot every other year to reduce overplotting and color the points by geographic region.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>The North Central and Northeast regions seem to have the most cohesive sets of states - most states in these regions follow the same drought trends, while the states in the West and South have more variation. The nation as a whole follows a similar drought trend during some periods of time ie) 2010 - 2012 as most of the nation enters a drought, while some regions follow different trends during other periods ie) 2006 - 2008 where the South and North Central regions become more dry and less dry, respectively. Overall, the West appears to be the driest or most drought-prone region.</p>
 <p>There was a great deal of variation in drought conditions from 2012 - 2016 as pictured above, especially in the North Central region. For a closer look at the transformation, we can plot the percentage in drought for the year, by county nationwide, during each of these years.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>We see the same phenomenon occurring on the map - the North Central and South regions become less drought-stricken from 2012 - 2016 while the Northeast becomes more drought-stricken and the West remains very dry.</p>
 <p>Did the number of wildfires in these areas follow the same trend? We should investigate the maps from 2012-2016. If drought and wildfires are correlated, Northeastern states should show an above average number of wildfires in 2016 and below average in 2012, while North Central states should have the opposite trend. Creating this map will also require some additional merges - we will perform this exercise at the state level, rather than the county level, as many counties contain limited or no data in NFIRS. To do so we can use Z-score, standardizing the number of fires per year by state, and comparing the Z-score for each state in 2012 and 2016 to the entire timeframe (2004 - 2016). Each year, we can think of a state’s score as its relative number of wildfires, compared to its average year.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>There is one outlier from this analysis - the state of Wyoming, which had a z-score outside the range of [-3, 3]. This may be a data collection error or perhaps an extraneous event, but in either case this state was excluded.
 Overall, the map looks quite similar to the drought map - between 2012 and 2016 wildfires in the North Central and South Central regions move from a higher than average year to a normal to lower than average year of wildfires. Simultaneously, the Northeast transitions from a lower than average number of wildfires to a much higher than average number of wildfires. The similarity of these trends shows there is a correlation between a state’s percent of the year spent in drought, and the comparative rate of wildfires per year between 2012 and 2016. States that became more dry experienced a higher than average number of wildfires, and states that became less dry experienced a lower than average number of wildfires from 2012 - 2016.</p>
 <p>We can also summarize this phenomenon in a Cleveland Dot Plot, comparing 2012 and 2016.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-16-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-18-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
 <p>It is easier to see the trends with these two figures. Between 2012 and 2016, the North Central region became less dry, and also decreased in relative frequency of wildfires. The Northeast region entered a drought, and increased the relative frequency of wildfires. The South and West had varying results, depending on the state.</p>
 </div>
 <div id="comparing-drought-to-wildfires" class="section level2 hasAnchor" number="4.5">
 <h2><span class="header-section-number">4.5</span> Comparing Drought to Wildfires<a href="results.html#comparing-drought-to-wildfires" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Most of this analysis so far has concerned trends among drought and trends among wildfires, identifying similarities between the two. However, exploratory data analysis can be performed working with the two datasets together.</p>
 <p>To visualize the correlation between percent of the year spent in drought and the relative number of wildfires (Z-Score), we can create a scatterplot. Each data point will represent one state during one year - its percent in drought during that year and its z-score for the number of wildfires will be calculated and plotted.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-17-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-17-2.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-19-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-19-2.png" width="672" /></p>
 <p>Overall there is a positive correlation between the percent of the year spent in drought, and the relative number of wildfires in a particular year. The correlation seems stronger in the Northeast, South and North Central regions than in the West. This is perhaps because the west is more drought-prone in general, meaning a small change in drought status does not make a large difference as the states are in a drought more years than not. The West is clearly the most drought-prone area, but a decrease in percent spent in drought, or a more wet year, does not seem to drastically impact the number of fires in Western states. For other regions, an increase in percent spent in drought is expected to increase the rate of wildfires.</p>
 <p>Drought is defined in the USDM database by multiple categories ranging from <em>No Drought</em> to <em>Exceptional Drought</em>. Using a merge between the NFIRS and USDM databases and a zipcode-to-county database, we can determine the county of each wildfire, and then the drought condition at that time using the year, week and county. We can then calculate the average number of wildfires per county, per week, for each drought condition. This will help us ultimately determine the comparative rate of wildfires at different drought conditions.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <p>We can see there is a correlation between the drought condition and the average number of wildfires per county per week. The largest jump occurs from the condition <em>No Drought</em> to <em>Abnormally Dry</em>and then from <em>Abnormally Dry</em> to <em>Moderate Drought</em>. After that, the rate of wildfires for each drought condition is similar. This means counties in a drought clearly have a higher rate of wildfires.</p>
 <p>We can view this data grouped as well, comparing the total time the country spent at each drought condition from 2004 - 2016 vs. the distribution of wildfires at the same drought condition.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>We can see that the country spent around 55% of the time in “No Drought” condition, but only 45% of wildfires occurred during that time. For all other drought conditions, the inverse relationship is true: a disproportionately high number of wildfires occurred while the country was in a drought.</p>
 </div>
 <div id="main-takeaways" class="section level2 hasAnchor" number="4.6">

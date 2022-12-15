@@ -30,7 +30,7 @@ wildfires = readRDS('./data/wildfires.rds')
 ```
 
 
-The pre-processed .rds objects were read into R. An additional column was added to the USDM database *r drought_condition*, which is a factor mapping the drought conditions listed in the metadata to the numerical value. 
+The pre-processed .rds objects were read into R. An additional column was added to the USDM database *drought_condition*, which is a factor mapping the drought conditions listed in the metadata to the numerical value. 
 
 
 ```{r}
@@ -380,8 +380,8 @@ wildfires_by_year = function(y)
 map1 = wildfires_by_year(2012)[[1]]
 map2 = wildfires_by_year(2016)[[1]]
 layer_no <- grep("GeomText", sapply(map1$layers, function(x) class(x$geom)[1]))
-map1$layers[[layer_no]]$default_aes$size = 2
-map2$layers[[layer_no]]$default_aes$size = 2
+map1$layers[[4]]$geom$default_aes$size = 2
+map2$layers[[4]]$geom$default_aes$size = 2
 
 grid.arrange(
   map1,
@@ -431,7 +431,10 @@ year_proportion_drought |>
   scale_fill_viridis(option = 'plasma', discrete = TRUE) +
   scale_x_continuous(labels = percent) +
   theme_dark(14) + 
-  theme(axis.text.y = element_text(size = rel(0.5))) +
+  theme(
+    axis.text.y = element_text(size = rel(0.5)),
+    panel.spacing = unit(1.5, "lines")
+  ) +  
   facet_wrap(~year) +
   labs(
     title = 'Proportion of Year in Drought: 2012 vs. 2016',
@@ -459,7 +462,10 @@ year_proportion_drought |>
   geom_point(pch = 21, color = 'black', size = 2.5) +
   scale_fill_viridis(option = 'plasma', discrete = TRUE) + 
   theme_dark(14) + 
-  theme(axis.text.y = element_text(size = rel(0.5))) +
+  theme(
+    axis.text.y = element_text(size = rel(0.5)),
+    panel.spacing = unit(1.5, "lines")
+  ) +
   facet_wrap(~year) +
   labs(
     title = 'Z-Score Number of Wildfires: 2012 vs. 2016',
@@ -467,7 +473,6 @@ year_proportion_drought |>
     y = '',
     fill = 'Region'
   )
-  
 ```
 
 
@@ -619,7 +624,10 @@ fires_by_drought_condition[, c(1, 5, 6)] |> pivot_longer(
   fill = name)) + 
   geom_bar(stat = 'identity', position = 'dodge', color = 'black') +
   scale_fill_discrete(
-    labels = c('Percent of Wildfires', 'Percent of Time in Drought Condition')
+    labels = c(
+      'Percent of Wildfires',
+      'National Percent of Time in Drought Condition'
+    )
   ) +
   theme_grey(12) + 
   theme(
@@ -629,7 +637,7 @@ fires_by_drought_condition[, c(1, 5, 6)] |> pivot_longer(
     legend.title = element_blank()
   ) +
   scale_x_continuous(labels = percent) +
-  labs(title = 'Percent of Time in Drought Condition vs. Share of wildfires')
+  labs(title = 'Percent of Time in Drought Condition vs. Share of Wildfires')
 ```
 
 We can see that the country spent around 55% of the time in "No Drought" condition, but only 45% of wildfires occurred during that time. For all other drought conditions, the inverse relationship is true: a disproportionately high number of wildfires occurred while the country was in a drought.

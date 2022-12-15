@@ -52,9 +52,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-
-<script src="libs/pivottabler-binding-1.5.4/pivottabler.js"></script>
 
 
 
@@ -78,17 +75,14 @@
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="proposal.html"><a href="proposal.html"><i class="fa fa-check"></i><b>2</b> Proposal</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="proposal.html"><a href="proposal.html#research-topic"><i class="fa fa-check"></i><b>2.1</b> Research topic</a></li>
-<li class="chapter" data-level="2.2" data-path="proposal.html"><a href="proposal.html#data-availability"><i class="fa fa-check"></i><b>2.2</b> Data availability</a></li>
+<li class="chapter" data-level="2.1" data-path="proposal.html"><a href="proposal.html#research-topic"><i class="fa fa-check"></i><b>2.1</b> Research Topic</a></li>
+<li class="chapter" data-level="2.2" data-path="proposal.html"><a href="proposal.html#data-availability"><i class="fa fa-check"></i><b>2.2</b> Data Availability</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>3</b> Data</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="data.html"><a href="data.html#sources"><i class="fa fa-check"></i><b>3.1</b> Sources</a>
-<ul>
-<li class="chapter" data-level="3.1.1" data-path="data.html"><a href="data.html#cdc-united-states-drought-monitor-usdm"><i class="fa fa-check"></i><b>3.1.1</b> CDC United States Drought Monitor (usdm)</a></li>
-</ul></li>
-<li class="chapter" data-level="3.2" data-path="data.html"><a href="data.html#cleaning-transformation"><i class="fa fa-check"></i><b>3.2</b> Cleaning / transformation</a></li>
-<li class="chapter" data-level="3.3" data-path="data.html"><a href="data.html#missing-value-analysis"><i class="fa fa-check"></i><b>3.3</b> Missing value analysis</a></li>
+<li class="chapter" data-level="3.1" data-path="data.html"><a href="data.html#sources"><i class="fa fa-check"></i><b>3.1</b> Sources</a></li>
+<li class="chapter" data-level="3.2" data-path="data.html"><a href="data.html#cleaningtransformation"><i class="fa fa-check"></i><b>3.2</b> Cleaning/Transformation</a></li>
+<li class="chapter" data-level="3.3" data-path="data.html"><a href="data.html#missing-value-analysis"><i class="fa fa-check"></i><b>3.3</b> Missing Value Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
 <ul>
@@ -99,10 +93,10 @@
 <li class="chapter" data-level="4.5" data-path="results.html"><a href="results.html#comparing-drought-to-wildfires"><i class="fa fa-check"></i><b>4.5</b> Comparing Drought to Wildfires</a></li>
 <li class="chapter" data-level="4.6" data-path="results.html"><a href="results.html#main-takeaways"><i class="fa fa-check"></i><b>4.6</b> Main Takeaways</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a>
+<li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive Component</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#data-preprocessing-for-d3-component"><i class="fa fa-check"></i><b>5.1</b> Data preprocessing for d3 component</a></li>
-<li class="chapter" data-level="5.2" data-path="interactive-component.html"><a href="interactive-component.html#code-for-d3-component"><i class="fa fa-check"></i><b>5.2</b> Code for d3 component</a></li>
+<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#data-preprocessing-for-d3-component"><i class="fa fa-check"></i><b>5.1</b> Data Preprocessing for d3 Component</a></li>
+<li class="chapter" data-level="5.2" data-path="interactive-component.html"><a href="interactive-component.html#d3-component-visualization"><i class="fa fa-check"></i><b>5.2</b> d3 Component Visualization</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -128,36 +122,270 @@
 <h1><span class="header-section-number">Chapter 3</span> Data<a href="data.html#data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="sources" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Sources<a href="data.html#sources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>We have two resources of data: The <a href="https://data.cdc.gov/Environmental-Health-Toxicology/United-States-Drought-Monitor-2000-2016/spsk-9jj6">CDC United States Drought Monitor</a> and <a href="https://www.fema.gov/about/openfema/data-sets/fema-usfa-nfirs-annual-data">NFIRS Public Data</a>.</p>
-<div id="cdc-united-states-drought-monitor-usdm" class="section level3 hasAnchor" number="3.1.1">
-<h3><span class="header-section-number">3.1.1</span> CDC United States Drought Monitor (usdm)<a href="data.html#cdc-united-states-drought-monitor-usdm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The CDC United States Drought Monitor (usdm) describes the data on the county level for the contiguous United States. It includes weekly United States Drought Monitor (USDM) data from 2000-2016 prodivded by the Cooperative Institute for Climate and Satellites - North Carolina. These data are used by the CDC’s National Environmental Public Health Tracking Network to generate drought measures. The time period of the data set is January 4, 2000 – December 27, 2016, known to be accurate as of time period end date. Data were downloaded from the Drought Monitor server and were originally provided as weekly county values. The highest category county was used as the final county value. For example, if a county was 65% in D2 and 35% in D3, the final value for the county would be D3.</p>
-<p>To be more specific, the dataset includes the following variables:
-(a) year: year of value in plain text
-(b) month: month of value in plain text
-(c) day: day of value in plain text
-(d) stateflips: state FIPS code in plain text
-(e) countyflips: county FIPS code in plain text
-(f) value: weekly USDM (United States Drought Monitor) value in number</p>
-</div>
-</div>
-<div id="cleaning-transformation" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Cleaning / transformation<a href="data.html#cleaning-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We have two resources of data: The <a href="https://data.cdc.gov/Environmental-Health-Toxicology/United-States-Drought-Monitor-2000-2016/spsk-9jj6">CDC United States Drought
+Monitor</a>
+and <a href="https://www.fema.gov/about/openfema/data-sets/fema-usfa-nfirs-annual-data">Annual NFIRS Public
+Data</a>.</p>
 <ol style="list-style-type: decimal">
-<li>CDC United States Drought Monitor (usdm)
-For the CDC United States Drought Monitor (usdm) data set, considering the dataset size and completeness, we filtered our data in the range of 2004 to 2016. The dataset is quite clean itself. Thus, we did a few add-on steps to make our data manipulation easier.</li>
+<li>CDC United States Drought Monitor (usdm)</li>
+</ol>
+<p>The CDC United States Drought Monitor (usdm) describes the drought status on the
+county level for the contiguous United States. It includes weekly United
+States Drought Monitor (USDM) data from 2000-2016 provided by the
+Cooperative Institute for Climate and Satellites - North Carolina. This
+data is used by the CDC’s National Environmental Public Health Tracking
+Network to generate drought measures. The time period of the data set is
+January 4, 2000 – December 27, 2016. The data itself is gathered from more than 350 contributors around the country, each week authored by one lead climatologist. The drought conditions are determined each week from measurements of climatic, hydrologic and soil conditions as well as reported impacts and observations.</p>
+<p>To be more specific, the dataset includes the following variables:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Name</th>
+<th>Data Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>year</td>
+<td>year of observation</td>
+<td>int</td>
+</tr>
+<tr class="even">
+<td>month</td>
+<td>month of observation</td>
+<td>int</td>
+</tr>
+<tr class="odd">
+<td>day</td>
+<td>day of observation</td>
+<td>int</td>
+</tr>
+<tr class="even">
+<td>statefips</td>
+<td>state FIPS identifying code</td>
+<td>int</td>
+</tr>
+<tr class="odd">
+<td>countyfips</td>
+<td>county FIPS identifying code</td>
+<td>int</td>
+</tr>
+</tbody>
+</table>
+<p>These variables were all read as ints, and were changed to character data as needed once the dataframe was read.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Annual NFIRS (National Fire Incident Reporting System) Public Data</li>
+</ol>
+<p>The annual National Fire Incident Reporting System (NFIRS) Public Data Release
+files are provided by the U.S. Fire Administration’s (USFA) National Fire Data
+Center (NFDC). The NFIRS is a reporting standard that fire departments use to
+uniformly report on the full range of their activities, from fire to emergency
+medical services (EMS) to equipment involved in the response.</p>
+<p>We use the data between 2004 and 2016. For each year, the data consists
+of three parts: fires, incidents, and addresses, coming from 3 separate text files.</p>
+<p>For incidents, we have variables:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Name</th>
+<th>Data Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>STATE</td>
+<td>state</td>
+<td>str</td>
+</tr>
+<tr class="even">
+<td>FDID</td>
+<td>fire department ID</td>
+<td>int</td>
+</tr>
+<tr class="odd">
+<td>INC_DATE</td>
+<td>date of incident</td>
+<td>int</td>
+</tr>
+<tr class="even">
+<td>INC_NO</td>
+<td>number of incident</td>
+<td>int</td>
+</tr>
+<tr class="odd">
+<td>EXP_NO</td>
+<td>exposure number</td>
+<td>int</td>
+</tr>
+<tr class="even">
+<td>TYPE_INC</td>
+<td>type of incident</td>
+<td>int</td>
+</tr>
+</tbody>
+</table>
+<p>For fires, we have variables:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Name</th>
+<th>Data Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>STATE</td>
+<td>state</td>
+<td>str</td>
+</tr>
+<tr class="even">
+<td>FDID</td>
+<td>fire department ID</td>
+<td>int</td>
+</tr>
+<tr class="odd">
+<td>INC_DATE</td>
+<td>date of incident</td>
+<td>int</td>
+</tr>
+<tr class="even">
+<td>INC_NO</td>
+<td>number of incident</td>
+<td>int</td>
+</tr>
+<tr class="odd">
+<td>EXP_NO</td>
+<td>exposure number</td>
+<td>int</td>
+</tr>
+</tbody>
+</table>
+<p>For the address information, we have variables:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Name</th>
+<th>Data Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>STATE</td>
+<td>state</td>
+<td>str</td>
+</tr>
+<tr class="even">
+<td>FDID</td>
+<td>fire department ID</td>
+<td>int</td>
+</tr>
+<tr class="odd">
+<td>INC_DATE</td>
+<td>date of incident</td>
+<td>int</td>
+</tr>
+<tr class="even">
+<td>INC_NO</td>
+<td>number of incident</td>
+<td>int</td>
+</tr>
+<tr class="odd">
+<td>EXP_NO</td>
+<td>exposure number</td>
+<td>int</td>
+</tr>
+<tr class="even">
+<td>CITY</td>
+<td>city of incident</td>
+<td>str</td>
+</tr>
+<tr class="odd">
+<td>STATE_ID</td>
+<td>state of incident</td>
+<td>str</td>
+</tr>
+<tr class="even">
+<td>ZIP5</td>
+<td>zipcode</td>
+<td>int</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="cleaningtransformation" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Cleaning/Transformation<a href="data.html#cleaningtransformation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>CDC United States Drought Monitor (usdm)</li>
+</ol>
+<p>For the CDC United States. Drought Monitor (usdm) data set, considering the dataset size and completeness, we filtered our data in the range of 2004 to 2016. The dataset is quite clean itself. Thus, we did a few add-on steps to make our data manipulation easier.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Add a column that formats date to be in the form of “yy-mm-dd”: we add a column that combines ‘year’, ‘month’, and ‘date’ as strings (characters) then converts to date.</li>
+<li>Match the value with drought condition as a categorical variable: the value column ranges from 0-4 and are defined as follows: D0: Abnormally Dry; D1: Moderate Drought; D2: Severe Drought; D3: Extreme Drought; D4: Exceptional Drought; No Drought is noted as 9. We added a column to match the value with the corresponding drought condition as a categorical variable to make the data set more understandable.</li>
+<li>Assign each row to 1 in the count column: adding a count column could help us in counting the number of rows by assigning each row of value 1.</li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li>Annual NFIRS (National Fire Incident Reporting System) Public Data</li>
 </ol>
 <ol style="list-style-type: lower-alpha">
-<li>adding a column that formats date to be in the form of “yy-mm-dd”;</li>
-<li>match the value with drought condition as a categorical variable.</li>
+<li>Create a unique ID for each entry: The unique identifier (primary key) for these incident-associated records is the combination of the State, fire department ID, incident date, incident number, and exposure number (STATE, FDID, INC_DATE, INC_NO, and EXP_NO), according to the <a href="https://www.usfa.fema.gov/downloads/pdf/nfirs/nfirs_data_analysis_guidelines_issues.pdf">NFIRS Design Documentation</a>, Page 8.</li>
+<li>DataFrame of fires was left-joined with DataFrame of incidents, which was left joined with DataFrame of address information, all on the primary key ‘id’.</li>
+<li>For consistency, we put all addresses in uppercase.</li>
+<li>Dropped duplicates for the merged DataFrame.</li>
+<li>Filtered the merged dataset only to include INC_TYPE within:</li>
 </ol>
+<table>
+<thead>
+<tr class="header">
+<th>INC_TYPE</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>14</td>
+<td>Natural vegetation fire</td>
+</tr>
+<tr class="even">
+<td>140</td>
+<td>Natural vegetation fire, other</td>
+</tr>
+<tr class="odd">
+<td>141</td>
+<td>Forest woods or wildland fire</td>
+</tr>
+<tr class="even">
+<td>142</td>
+<td>Brush or brush-and-grass mixture fire</td>
+</tr>
+<tr class="odd">
+<td>143</td>
+<td>Grass fire</td>
+</tr>
+</tbody>
+</table>
+<p>At the end, we have a wildfire dataset that contains ID, INC_TYPE, FDID, CITY, STATE, and ZIP5 as columns for further analysis.</p>
 </div>
 <div id="missing-value-analysis" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> Missing value analysis<a href="data.html#missing-value-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">3.3</span> Missing Value Analysis<a href="data.html#missing-value-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
-<li>CDC United States Drought Monitor (usdm)
-According to the documentation of usdm data set, “No data were lost or omitted during calculation. All data that were available were used. Data will be updated on an ad hoc basis, when necessary”.</li>
+<li>CDC United States Drought Monitor (usdm)</li>
 </ol>
+<p>According to the documentation of usdm data set, “No data were lost or omitted during calculation. All data that were available were used. Data will be updated on an ad hoc basis, when necessary”. We also checked for missing values by calling the <em>isnull()</em> and <em>isna()</em> functions to confirm that the data set does not miss any values.</p>
+<p>To further confirm, we used <em>plot_missing</em> function from library <em>redav</em> to check the missing percentage and pattern.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>We can see from the graph that there are no missing values in the dataset and every variable is complete.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Annual NFIRS (National Fire Incident Reporting System) Public Data</li>
+</ol>
+<p>We identified: during the preprocessing, in the combined incidents file there were 3693 missing values for the ‘STATE’ variable; in the fires data portion, there were 1125 missing values for the ‘STATE’ variable, and so not all incidents or fires had a full primary key or unique identifier. Considering the large size of the data set, millions of rows from 2004 - 2016, it was sufficient for our analysis to merge the dataset without addressing missing components of the primary key.</p>
+<p>NFIRS is also not reflective of the total number of wildfires in the United States, as is reported by the agency. Rather, analysis in NFIRS should be focused on changes, or trends in the number of reported wildfires over time and space. For this reason, ignoring incomplete IDs was deemed adequate, as the exact number of wildfires in NFIRS is not as important as the magnitude and changes in the data over time.</p>
+<p>We further verify after preprocessing that our wildfire dataset is complete below.
+<img src="finalproj_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>We can see that the data, after preprocessing, was complete.</p>
 
 </div>
 </div>
