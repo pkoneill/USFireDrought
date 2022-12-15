@@ -1,7 +1,17 @@
 # Interactive component
 ## Data preprocessing for d3 component 
+
+The preprocessing for the interactive component consisted of calculating the number of wildfires per state, per year. We chose the subset of 2013 - 2016 for an interactive component, resulting in the four tables below after preprocessing.
+
+Recall, the NFIRS database includes only a sample of total fire data. As such, rather than interpret the number of wildfires in each state as a raw number, it is more keen to track the number of NFIRS wildfires over time, observing a general trend. 
+
 ```{r}
 library(lubridate)
+library(dplyr)
+library(pivottabler)
+```
+
+```{r}
 # read data
 #usdm <- readRDS('./data/usdm.rds')
 #wildfires <- readRDS('./data/wildfires.rds')
@@ -18,9 +28,7 @@ library(lubridate)
 ```
 
 ```{r}
-library(dplyr)
 wildfires2016 <- filter(wildfires, year==2016)
-library(pivottabler)
 pt <- PivotTable$new()
 pt$addData(wildfires2016)
 
@@ -80,7 +88,10 @@ state_num_wildfire <- pt$asDataFrame()
 #write.csv(state_num_wildfire, 'state_num_wildfire2013.csv')
 
 ```
+
 ## Code for d3 component 
-<iframe src="d3-viz.html" width="800" height="600"></iframe>
+<iframe src="d3-viz.html"
+style="position: relative; height: 100%; width: 100%;">
+</iframe>
 
 
