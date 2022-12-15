@@ -4,8 +4,17 @@ research-topic
 data-availability
 data
 sources
+cdc-united-states-drought-monitor-usdm
 cleaning-transformation
 missing-value-analysis
 results
+reading-the-data-sources
+usdm-database-drought-trends
+nfirs-database-wildfire-trends
+state-and-county-wide-results
+comparing-drought-to-wildfires
+main-takeaways
 interactive-component
+data-preprocessing-for-d3-component
+code-for-d3-component
 conclusion

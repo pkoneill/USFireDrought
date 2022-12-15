@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Data | US Fire and Drought</title>
   <meta name="description" content="Chapter 3 Data | US Fire and Drought" />
-  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Data | US Fire and Drought" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Hannah Yang, Kevin Taylor and Pia O’Neill" />
 
 
-<meta name="date" content="2022-10-31" />
+<meta name="date" content="2022-12-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,9 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+
+<script src="libs/pivottabler-binding-1.5.4/pivottabler.js"></script>
 
 
 
@@ -80,12 +83,27 @@
 </ul></li>
 <li class="chapter" data-level="3" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>3</b> Data</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="data.html"><a href="data.html#sources"><i class="fa fa-check"></i><b>3.1</b> Sources</a></li>
+<li class="chapter" data-level="3.1" data-path="data.html"><a href="data.html#sources"><i class="fa fa-check"></i><b>3.1</b> Sources</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="data.html"><a href="data.html#cdc-united-states-drought-monitor-usdm"><i class="fa fa-check"></i><b>3.1.1</b> CDC United States Drought Monitor (usdm)</a></li>
+</ul></li>
 <li class="chapter" data-level="3.2" data-path="data.html"><a href="data.html#cleaning-transformation"><i class="fa fa-check"></i><b>3.2</b> Cleaning / transformation</a></li>
 <li class="chapter" data-level="3.3" data-path="data.html"><a href="data.html#missing-value-analysis"><i class="fa fa-check"></i><b>3.3</b> Missing value analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a></li>
-<li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a></li>
+<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#reading-the-data-sources"><i class="fa fa-check"></i><b>4.1</b> Reading the Data Sources</a></li>
+<li class="chapter" data-level="4.2" data-path="results.html"><a href="results.html#usdm-database-drought-trends"><i class="fa fa-check"></i><b>4.2</b> USDM Database: Drought Trends</a></li>
+<li class="chapter" data-level="4.3" data-path="results.html"><a href="results.html#nfirs-database-wildfire-trends"><i class="fa fa-check"></i><b>4.3</b> NFIRS Database: Wildfire Trends</a></li>
+<li class="chapter" data-level="4.4" data-path="results.html"><a href="results.html#state-and-county-wide-results"><i class="fa fa-check"></i><b>4.4</b> State and County-Wide Results</a></li>
+<li class="chapter" data-level="4.5" data-path="results.html"><a href="results.html#comparing-drought-to-wildfires"><i class="fa fa-check"></i><b>4.5</b> Comparing Drought to Wildfires</a></li>
+<li class="chapter" data-level="4.6" data-path="results.html"><a href="results.html#main-takeaways"><i class="fa fa-check"></i><b>4.6</b> Main Takeaways</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#data-preprocessing-for-d3-component"><i class="fa fa-check"></i><b>5.1</b> Data preprocessing for d3 component</a></li>
+<li class="chapter" data-level="5.2" data-path="interactive-component.html"><a href="interactive-component.html#code-for-d3-component"><i class="fa fa-check"></i><b>5.2</b> Code for d3 component</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -110,12 +128,36 @@
 <h1><span class="header-section-number">Chapter 3</span> Data<a href="data.html#data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="sources" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Sources<a href="data.html#sources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We have two resources of data: The <a href="https://data.cdc.gov/Environmental-Health-Toxicology/United-States-Drought-Monitor-2000-2016/spsk-9jj6">CDC United States Drought Monitor</a> and <a href="https://www.fema.gov/about/openfema/data-sets/fema-usfa-nfirs-annual-data">NFIRS Public Data</a>.</p>
+<div id="cdc-united-states-drought-monitor-usdm" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> CDC United States Drought Monitor (usdm)<a href="data.html#cdc-united-states-drought-monitor-usdm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The CDC United States Drought Monitor (usdm) describes the data on the county level for the contiguous United States. It includes weekly United States Drought Monitor (USDM) data from 2000-2016 prodivded by the Cooperative Institute for Climate and Satellites - North Carolina. These data are used by the CDC’s National Environmental Public Health Tracking Network to generate drought measures. The time period of the data set is January 4, 2000 – December 27, 2016, known to be accurate as of time period end date. Data were downloaded from the Drought Monitor server and were originally provided as weekly county values. The highest category county was used as the final county value. For example, if a county was 65% in D2 and 35% in D3, the final value for the county would be D3.</p>
+<p>To be more specific, the dataset includes the following variables:
+(a) year: year of value in plain text
+(b) month: month of value in plain text
+(c) day: day of value in plain text
+(d) stateflips: state FIPS code in plain text
+(e) countyflips: county FIPS code in plain text
+(f) value: weekly USDM (United States Drought Monitor) value in number</p>
+</div>
 </div>
 <div id="cleaning-transformation" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Cleaning / transformation<a href="data.html#cleaning-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>CDC United States Drought Monitor (usdm)
+For the CDC United States Drought Monitor (usdm) data set, considering the dataset size and completeness, we filtered our data in the range of 2004 to 2016. The dataset is quite clean itself. Thus, we did a few add-on steps to make our data manipulation easier.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>adding a column that formats date to be in the form of “yy-mm-dd”;</li>
+<li>match the value with drought condition as a categorical variable.</li>
+</ol>
 </div>
 <div id="missing-value-analysis" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Missing value analysis<a href="data.html#missing-value-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>CDC United States Drought Monitor (usdm)
+According to the documentation of usdm data set, “No data were lost or omitted during calculation. All data that were available were used. Data will be updated on an ad hoc basis, when necessary”.</li>
+</ol>
 
 </div>
 </div>
