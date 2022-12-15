@@ -73,7 +73,23 @@ At the end, we have a wildfire dataset that have ID, AREA_ORIG, FIRST_IGN, CAUSE
 
 According to the documentation of usdm data set, "No data were lost or omitted during calculation. All data that were available were used. Data will be updated on an ad hoc basis, when necessary". We also checked in our scripts by calling isnull(), isna() function to further confirm that the data set doesn't miss any data value.
 
+To further confirm, we use plot_missing function from library(redav) to check the missing percentage and patteren. 
+```{r}
+remotes::install_github("jtr13/redav")
+usdm <- readRDS("./data/usdm.rds")
+usdm$date <- as.Date(usdm$date) # convert date column to date type
+library(redav)
+plot_missing(usdm)
+```
+We can see from the graph that there's 0% missing values in the dataset and every variable is complete. 
 
 2.  Annual NFIRS (National Fire Incident Reporting System) Public Data
 
-We identified: in the incident data part, there are 3693 missing values for the 'STATE' variable; in the fires data portion, there are 1125 missing values for the 'STATE' variable, and not all years have INCIDENT_KEY. We first filled NaN for important categories such as 'STATE', 'INC_NO', 'AREA_ORIG', and 'FIRST_IGN', impute with 'UNKNOWN'. Then, considering the large size of the data set, which is sufficient for our analysis purpose, we put all addresses in uppercase and remove NaN missing values. 
+We identified: in the incident data part, there are 3693 missing values for the 'STATE' variable; in the fires data portion, there are 1125 missing values for the 'STATE' variable, and not all years have INCIDENT_KEY. We first filled NaN for important categories such as 'STATE', 'INC_NO', 'AREA_ORIG', and 'FIRST_IGN', impute with 'UNKNOWN'. Then, considering the large size of the data set, which is sufficient for our analysis purpose, we put all addresses in uppercase and remove NaN missing values. These steps are performs in the preprocessing scripts in python.
+
+We further verify after preprocessing that our wildfire dataset is complete below. 
+```{r}
+wildfires <- readRDS('./data/wildfires.rds')
+plot_missing(wildfires)
+```
+We can see that the data set is complete now. 
