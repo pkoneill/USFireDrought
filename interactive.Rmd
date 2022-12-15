@@ -1,9 +1,12 @@
 # Interactive component
 ## Data preprocessing for d3 component 
 ```{r}
+library(lubridate)
 # read data
-usdm <- read.csv('./data/usdm.csv')
-wildfires <- read.csv('./data/wildfires.csv')
+usdm <- readRDS('./data/usdm.rds')
+wildfires <- readRDS('./data/wildfires.rds')
+wildfires$date = lubridate::mdy(wildfires$INC_DATE) # convert date
+wildfires$year = year(wildfires$date) # pull year from date
 ```
 
 ```{r}

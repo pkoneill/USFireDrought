@@ -26,7 +26,7 @@ library(ggridges)
 ```{r}
 usdm = readRDS('./data/usdm.rds')
 usdm$date = as.Date(usdm$date) # convert date column to date type
-wildfires = readRDS('./data/wildfires_v2.rds')
+wildfires = readRDS('./data/wildfires.rds')
 ```
 The pre-processed .rds objects were read into R. An additional column was added to the USDM database *r drought_condition*, which is a factor mapping the drought conditions listed in the metadata to the numerical value. 
 ```{r}
