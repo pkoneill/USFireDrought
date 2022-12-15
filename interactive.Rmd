@@ -81,6 +81,6 @@ state_num_wildfire <- pt$asDataFrame()
 
 ```
 ## Code for d3 component 
-<iframe src="d3_viz.html" width="400" height="300"></iframe>
+<iframe src="d3-viz.html" width="800" height="600"></iframe>
 
 

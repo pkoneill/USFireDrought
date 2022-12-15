@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>US Fire and Drought</title>
+		<script src="https://d3js.org/d3.v7.js"></script>  <!-- link to D3 library -->
+
+
+	</head>
+
+	<body>
+		<h1>Yearly number of wildfires per state</h1>
+		<h3>Please select a year to get started</h2>
+		<br>
+		<input type="radio" id="2016id" value="2016" name="foo"> 2016
+		<input type="radio" id="2015id" value="2015" name="foo"> 2015
+		<input type="radio" id="2014id" value="2014" name="foo"> 2014
+		<input type="radio" id="2013id" value="2013" name="foo"> 2013
+		
+
+		<script>
+			const w = 950; 
+      		const h = 500;
+			const margin = {top: 25, right: 0, bottom: 25, left: 45};
+  			const innerWidth = w - margin.left - margin.right;
+  			const innerHeight = h - margin.top - margin.bottom;
+
+			const rowConverter = function (d) {
+                return {
+                    state: d.state,
+                    count: +d.count
+                    }
+                };  
+				
+			d3.selectAll("input")
+			.on("click", function(event) {
+				var year = event.currentTarget.value;
+				path = "https://raw.githubusercontent.com/leyaoyang2/firedroughtdata/main/state_num_wildfire2016.csv"
+				if (parseInt(year) == 2016){
+					path = "https://raw.githubusercontent.com/leyaoyang2/firedroughtdata/main/state_num_wildfire2016.csv"
+
+				}else if (parseInt(year) == 2015){
+					path = "https://raw.githubusercontent.com/leyaoyang2/firedroughtdata/main/state_num_wildfire2015.csv"
+
+				}else if (parseInt(year) == 2014){
+					path = "https://raw.githubusercontent.com/leyaoyang2/firedroughtdata/main/state_num_wildfire2014.csv"
+
+				} else if (parseInt(year)==2013){
+					path = "https://raw.githubusercontent.com/leyaoyang2/firedroughtdata/main/state_num_wildfire2013.csv"
+				}
+
+
+
+				d3.csv(path, rowConverter)
+            	.then(function(data) {
+				console.log(data)
+
+				d3.select("svg").remove();
+
+				const svg = d3.select("body")
+  				.append("svg")
+   				.attr("width", w)
+    			.attr("height", h);
+
+				svg.append("rect")
+				.attr("x", 0)
+				.attr("y", 0)
+				.attr("width", w)
+				.attr("height", h)
+				.attr("fill", "aliceblue");
+
+				const xScale = d3.scaleBand()
+					.domain(data.map(d => d.state))
+					.range([0, innerWidth])
+					.paddingInner(.1);
+
+				const yScale = d3.scaleLinear()
+					.domain([0, d3.max(data.map(d => d.count))])
+					.range([innerHeight, 0])
+
+				const xAxis = d3.axisBottom()
+      			.scale(xScale);
+
+  				const yAxis = d3.axisLeft()
+      			.scale(yScale);
+
+				const bars = svg.selectAll("rect").data(data);
+
+				bars.enter().append("rect")
+				.attr("x", d => xScale(d.state)+28)
+				.attr("y", d => yScale(d.count)+25)
+				.attr("width", xScale.bandwidth())
+				.attr("height", d => innerHeight - yScale(d.count))
+				.attr("fill", "purple");
+
+				svg.append("g")
+				.attr("class", "xAxis")
+				.attr("transform", `translate (${margin.left}, ${h - margin.bottom})`)
+				.call(xAxis);
+
+				svg.append("g")
+				.attr("class", "yAxis")
+				.attr("transform", `translate (${margin.left}, ${margin.top})`)
+				.call(yAxis);
+            })
+            .catch(function(error) {
+                alert(error)
+             });
+
+				});
+
+
+
+            
+			
+
+			
+                    
+		</script>
+
+	</body>
+
+</html>
