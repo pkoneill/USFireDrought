@@ -84,8 +84,6 @@ library(pivottabler)
 ```
 
 ## d3 Component Visualization
-<iframe src="d3-viz.html"
-style="overflow:auto; height: 100%; width: 100%;">
-</iframe>
+<iframe src="d3-viz.html" width="1000" height="700"></iframe>
 
 
